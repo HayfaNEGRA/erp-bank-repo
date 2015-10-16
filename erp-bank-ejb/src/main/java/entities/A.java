@@ -28,6 +28,5 @@ public class A implements Serializable {
 		this.id = id;
 	}
 
-	public void set() {
-	}
+
 }
