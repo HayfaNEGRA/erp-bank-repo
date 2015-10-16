@@ -5,27 +5,27 @@ import java.lang.Integer;
 import javax.persistence.*;
 
 /**
- * Entity implementation class for Entity: A
+ * Entity implementation class for Entity: Materials
  *
  */
 @Entity
 
-public class A implements Serializable {
+public class Materials implements Serializable {
 
 	
-	private Integer id;
+	private Integer Id;
 	private static final long serialVersionUID = 1L;
 
-	public A() {
+	public Materials() {
 		super();
 	}   
 	@Id    
 	public Integer getId() {
-		return this.id;
+		return this.Id;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(Integer Id) {
+		this.Id = Id;
 	}
    
 }
