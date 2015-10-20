@@ -7,30 +7,29 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import services.interfaces.MaterialsServicesLocal;
-import services.interfaces.MaterialsServicesRemote;
-import entities.Materials;
+import entities.CallOffer;
+import services.interfaces.CallOfferServicesLocal;
+import services.interfaces.CallOfferServicesRemote;
 
 /**
- * Session Bean implementation class MaterialsServices
+ * Session Bean implementation class CallOfferServices
  */
-
 @Stateless
 @LocalBean
-public class MaterialsServices implements MaterialsServicesRemote, MaterialsServicesLocal {
+public class CallOfferServices implements CallOfferServicesRemote, CallOfferServicesLocal {
 	private EntityManager entityManager;
     /**
      * Default constructor. 
      */
-    public MaterialsServices() {
+    public CallOfferServices() {
         // TODO Auto-generated constructor stub
     }
 
-	@Override
-	public Boolean addMateriel(Materials materiel) {
+    @Override
+	public Boolean addcall_offer(CallOffer call_offer) {
 		Boolean b = false;
 				try {
-					entityManager.persist(materiel);
+					entityManager.persist(call_offer);
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -39,10 +38,10 @@ public class MaterialsServices implements MaterialsServicesRemote, MaterialsServ
 	}
 
 	@Override
-	public Boolean deleteMaterielById(Integer id) {
+	public Boolean deletecall_offerById(Integer id) {
 		Boolean b = false;
 				try {
-					entityManager.remove(findMaterielById(id));
+					entityManager.remove(findcall_offerById(id));
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -51,17 +50,17 @@ public class MaterialsServices implements MaterialsServicesRemote, MaterialsServ
 	}
 
 	@Override
-	public Materials findMaterielById(Integer id) {
-		return entityManager.find(Materials.class, id);
+	public CallOffer findcall_offerById(Integer id) {
+		return entityManager.find(CallOffer.class, id);
 		
 	}
 
 	@Override
-	public Boolean updateMateriel(Materials materiel) {
+	public Boolean updatecall_offer(CallOffer call_offer) {
 		
 		Boolean b = false;
 				try {
-					entityManager.merge(materiel);
+					entityManager.merge(call_offer);
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -70,10 +69,10 @@ public class MaterialsServices implements MaterialsServicesRemote, MaterialsServ
 	}
 
 	@Override
-	public Boolean deleteMateriel(Materials materiel) {
+	public Boolean deletecall_offer(CallOffer call_offer) {
 		Boolean b = false;
 				try {
-					entityManager.remove(entityManager.merge(materiel));
+					entityManager.remove(entityManager.merge(call_offer));
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -83,8 +82,8 @@ public class MaterialsServices implements MaterialsServicesRemote, MaterialsServ
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Materials> findAllMaterials() {
-		String jpql = "select e from Materials e";
+	public List<CallOffer> findAllCallOffer() {
+		String jpql = "select e from CallOffer e";
 				Query query = entityManager.createQuery(jpql);
 				return query.getResultList();
 	}
