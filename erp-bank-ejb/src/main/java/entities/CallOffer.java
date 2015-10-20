@@ -37,5 +37,6 @@ public class CallOffer implements Serializable {
 	public void setDescription(String Description) {
 		this.Description = Description;
 	}
+
    
 }

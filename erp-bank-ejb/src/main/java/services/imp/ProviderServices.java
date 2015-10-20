@@ -7,29 +7,29 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import entities.CallOffer;
-import services.interfaces.CallOfferServicesLocal;
-import services.interfaces.CallOfferServicesRemote;
+import entities.Provider;
+import services.interfaces.ProviderServicesLocal;
+import services.interfaces.ProviderServicesRemote;
 
 /**
- * Session Bean implementation class CallOfferServices
+ * Session Bean implementation class ProviderServices
  */
 @Stateless
 @LocalBean
-public class CallOfferServices implements CallOfferServicesRemote, CallOfferServicesLocal {
+public class ProviderServices implements ProviderServicesRemote, ProviderServicesLocal {
 	private EntityManager entityManager;
     /**
      * Default constructor. 
      */
-    public CallOfferServices() {
+    public ProviderServices() {
         // TODO Auto-generated constructor stub
     }
 
     @Override
-	public Boolean addcall_offer(CallOffer call_offer) {
+	public Boolean addprovider(Provider provider) {
 		Boolean b = false;
 				try {
-					entityManager.persist(call_offer);
+					entityManager.persist(provider);
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -38,10 +38,10 @@ public class CallOfferServices implements CallOfferServicesRemote, CallOfferServ
 	}
 
 	@Override
-	public Boolean deletecall_offerById(Integer id) {
+	public Boolean deleteproviderById(Integer id) {
 		Boolean b = false;
 				try {
-					entityManager.remove(findcall_offerById(id));
+					entityManager.remove(findproviderById(id));
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -50,17 +50,17 @@ public class CallOfferServices implements CallOfferServicesRemote, CallOfferServ
 	}
 
 	@Override
-	public CallOffer findcall_offerById(Integer id) {
-		return entityManager.find(CallOffer.class, id);
+	public Provider findproviderById(Integer id) {
+		return entityManager.find(Provider.class, id);
 		
 	}
 
 	@Override
-	public Boolean updatecall_offer(CallOffer call_offer) {
+	public Boolean updateprovider(Provider provider) {
 		
 		Boolean b = false;
 				try {
-					entityManager.merge(call_offer);
+					entityManager.merge(provider);
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -69,10 +69,10 @@ public class CallOfferServices implements CallOfferServicesRemote, CallOfferServ
 	}
 
 	@Override
-	public Boolean deletecall_offer(CallOffer call_offer) {
+	public Boolean deleteprovider(Provider provider) {
 		Boolean b = false;
 				try {
-					entityManager.remove(entityManager.merge(call_offer));
+					entityManager.remove(entityManager.merge(provider));
 					b = true;
 				} catch (Exception e) {
 					System.err.println("ouups ...");
@@ -80,12 +80,11 @@ public class CallOfferServices implements CallOfferServicesRemote, CallOfferServ
 				return b;
 	}
 
-	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<CallOffer> findAllCallOffer() {
-		String jpql = "select e from CallOffer e";
+	public List<Provider> findAllProvider() {
+		String jpql = "select e from Provider e";
 				Query query = entityManager.createQuery(jpql);
 				return query.getResultList();
 	}
-
 }
