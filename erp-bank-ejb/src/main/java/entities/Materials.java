@@ -19,6 +19,14 @@ public class Materials implements Serializable {
 	}
 
 
+	
+
+	private int Id;
+	private float price;
+	private Date DeliveyDate;
+	private String MaterialState;
+	private InventoryManager Inventory_Manager;
+	
 	public Materials(int id, float price, Date deliveyDate, String materialState) {
 		super();
 		Id = id;
@@ -27,11 +35,6 @@ public class Materials implements Serializable {
 		MaterialState = materialState;
 	}
 
-
-	private int Id;
-	private float price;
-	private Date DeliveyDate;
-	private String MaterialState;
 	
 	public float getPrice() {
 		return price;
@@ -63,6 +66,17 @@ public class Materials implements Serializable {
 
 	public void setId(Integer Id) {
 		this.Id = Id;
+	}
+
+	@ManyToOne
+	@JoinColumn(name="Id_Materials")
+	public InventoryManager getInventory_Manager() {
+		return Inventory_Manager;
+	}
+
+
+	public void setInventory_Manager(InventoryManager inventory_Manager) {
+		Inventory_Manager = inventory_Manager;
 	}
 	
    
