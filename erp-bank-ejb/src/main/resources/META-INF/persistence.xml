@@ -5,10 +5,12 @@
 	<persistence-unit name="erp-bank-ejb">
 		<jta-data-source>java:jboss/erp-bank</jta-data-source>
 		<class>entities.CallOffer</class>
+		<class>entities.CandidaciesDemands</class>
 		<class>entities.Employee</class>
 		<class>entities.InventoryManager</class>
 		<class>entities.Materials</class>
 		<class>entities.Provider</class>
+
 		<class>entities.TrainingSession</class>
 
 		<properties>
