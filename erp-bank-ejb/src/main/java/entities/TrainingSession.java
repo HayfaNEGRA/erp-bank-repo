@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Date;
+
 import javax.persistence.*;
 
 /**
@@ -21,6 +22,8 @@ public class TrainingSession implements Serializable {
 	private String Goal;
 	private String CoachName;
 	private static final long serialVersionUID = 1L;
+	private HumanRessourceManager humanressourcemanager;
+
 
 	public TrainingSession() {
 		super();
@@ -54,5 +57,13 @@ public class TrainingSession implements Serializable {
 	public void setCoachName(String CoachName) {
 		this.CoachName = CoachName;
 	}
+	@ManyToOne
+	public HumanRessourceManager getHumanressourcemanager() {
+		return humanressourcemanager;
+	}
+	public void setHumanressourcemanager(HumanRessourceManager humanressourcemanager) {
+		this.humanressourcemanager = humanressourcemanager;
+	}
+	
    
 }

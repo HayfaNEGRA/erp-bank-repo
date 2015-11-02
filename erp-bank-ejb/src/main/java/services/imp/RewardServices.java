@@ -15,7 +15,7 @@ import services.interfaces.RewardServicesRemote;
  * Session Bean implementation class RewardServices
  */
 @Stateless
-@LocalBean
+
 public class RewardServices implements RewardServicesRemote, RewardServicesLocal {
 private EntityManager entityManager;
     /**
@@ -30,7 +30,7 @@ private EntityManager entityManager;
 					entityManager.persist(reward);
 					b = true;
 				} catch (Exception e) {
-					System.err.println("ouups ...");
+					System.err.println("ouuuuuuuuuups...");
 				}
 				return b;
 	}
