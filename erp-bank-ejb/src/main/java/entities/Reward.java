@@ -18,11 +18,14 @@ public class Reward implements Serializable {
 	private Integer IdReward;
 	private String Libelle;
 	private static final long serialVersionUID = 1L;
+	private HumanRessourceManager humanressourcemanager;
+	
 
 	public Reward() {
 		super();
 	}   
-	@Id    
+	@Id   
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getIdReward() {
 		return this.IdReward;
 	}
@@ -37,5 +40,13 @@ public class Reward implements Serializable {
 	public void setLibelle(String Libelle) {
 		this.Libelle = Libelle;
 	}
+	@ManyToOne
+	public HumanRessourceManager getHumanressourcemanager() {
+		return humanressourcemanager;
+	}
+	public void setHumanressourcemanager(HumanRessourceManager humanressourcemanager) {
+		this.humanressourcemanager = humanressourcemanager;
+	}
+	
    
 }
