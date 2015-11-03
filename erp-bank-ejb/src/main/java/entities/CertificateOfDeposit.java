@@ -16,7 +16,7 @@ public class CertificateOfDeposit extends BankAccount implements Serializable {
 
 	
 	private Double rate;
-	private Integer PeridsInYears;
+	private Integer PeriodInYears;
 	private static final long serialVersionUID = 1L;
 
 	public CertificateOfDeposit() {
@@ -29,12 +29,12 @@ public class CertificateOfDeposit extends BankAccount implements Serializable {
 	public void setRate(Double rate) {
 		this.rate = rate;
 	}   
-	public Integer getPeridsInYears() {
-		return this.PeridsInYears;
+	public Integer getPeriodInYears() {
+		return this.PeriodInYears;
 	}
 
-	public void setPeridsInYears(Integer PeridsInYears) {
-		this.PeridsInYears = PeridsInYears;
+	public void setPeriodInYears(Integer PeriodInYears) {
+		this.PeriodInYears = PeriodInYears;
 	}
    
 }

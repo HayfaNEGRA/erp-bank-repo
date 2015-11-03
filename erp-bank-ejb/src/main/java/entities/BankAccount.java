@@ -5,6 +5,8 @@ import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Integer;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -14,8 +16,8 @@ import javax.persistence.*;
 @Entity
 
 public class BankAccount implements Serializable {
-
-	
+    private List <AccountStatement> accountStatements;
+	private Customer customer;
 	private Integer bankAccountID;
 	private Integer bankAccountNumber;
 	private Double Balance;
@@ -61,6 +63,20 @@ public class BankAccount implements Serializable {
 
 	public void setIsDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	@ManyToOne
+	public Customer getCustomer() {
+		return customer;
+	}
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+	@OneToMany(mappedBy="bankAccount")
+	public List <AccountStatement> getAccountStatements() {
+		return accountStatements;
+	}
+	public void setAccountStatements(List <AccountStatement> accountStatements) {
+		this.accountStatements = accountStatements;
 	}
    
 }

@@ -3,6 +3,8 @@ package entities;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
+
 import javax.persistence.*;
 
 /**
@@ -13,7 +15,7 @@ import javax.persistence.*;
 
 public class Customer implements Serializable {
 
-	
+	private List <BankAccount> bankAccounts;
 	private Integer customerID;
 	private Integer cin;
 	private String firstName;
@@ -75,6 +77,13 @@ public class Customer implements Serializable {
 
 	public void setIsDeleted(boolean isDeleted) {
 		this.isDeleted = isDeleted;
+	}
+	@OneToMany(mappedBy="customer")
+	public List <BankAccount> getBankAccounts() {
+		return bankAccounts;
+	}
+	public void setBankAccounts(List <BankAccount> bankAccounts) {
+		this.bankAccounts = bankAccounts;
 	}
    
 }
