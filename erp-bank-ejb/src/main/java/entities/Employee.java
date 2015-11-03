@@ -20,6 +20,7 @@ public class Employee implements Serializable {
 	private String LastName;
 	private String Email;
 	private String Password;
+	private Payslip payslip;
 	private Boolean IsDeleted;
 	private static final long serialVersionUID = 1L;
 
@@ -37,7 +38,13 @@ public class Employee implements Serializable {
 	public String getFirstName() {
 		return this.FirstName;
 	}
-
+	@ManyToOne
+	public Payslip getPayslip() {
+		return payslip;
+	}
+	public void setPayslip(Payslip payslip) {
+		this.payslip = payslip;
+	}
 	public void setFirstName(String FirstName) {
 		this.FirstName = FirstName;
 	}   
