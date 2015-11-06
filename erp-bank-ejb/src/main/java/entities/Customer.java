@@ -29,6 +29,8 @@ public class Customer implements Serializable {
 		super();
 	}  
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getCustomerID() {
 		return this.customerID;
 	}

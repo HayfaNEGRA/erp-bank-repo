@@ -24,7 +24,9 @@ public class TestServiceOne {
 		InventoryManager e = new InventoryManager();
 		e.setEmail("Moez@gmail.com");
 		e.setFirstName("Moez");
-		e.setIdEmployee(1);
+		
+		e.setPassword("Moez");
+		
 		
 		proxy.addEmployee(e);
 		//System.out.println(proxy.identifIM("Moez@gmail.com", "Moez"));

@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+
 import javax.persistence.*;
 
 /**
@@ -24,7 +25,9 @@ public class CallOffer implements Serializable {
 	public CallOffer() {
 		super();
 	}   
-	@Id    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getId() {
 		return this.Id;
 	}
