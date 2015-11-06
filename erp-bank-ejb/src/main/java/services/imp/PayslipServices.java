@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Payslip;
@@ -17,6 +18,7 @@ import services.interfaces.PayslipServicesRemote;
 @Stateless
 @LocalBean
 public class PayslipServices implements PayslipServicesRemote, PayslipServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
 
     /**

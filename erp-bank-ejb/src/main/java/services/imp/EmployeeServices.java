@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Employee;
@@ -19,7 +20,7 @@ import services.interfaces.EmployeeServicesRemote;
 @Stateless
 @LocalBean
 public class EmployeeServices implements EmployeeServicesRemote, EmployeeServicesLocal {
-
+@PersistenceContext
 	private EntityManager entityManager;
     /**
      * Default constructor. 

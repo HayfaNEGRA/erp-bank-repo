@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.HumanRessourceManager;
@@ -17,6 +18,7 @@ import services.interfaces.HumanRessourceManagerServicesRemote;
 @Stateless
 @LocalBean
 public class HumanRessourceManagerServices implements HumanRessourceManagerServicesRemote, HumanRessourceManagerServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
 
     /**

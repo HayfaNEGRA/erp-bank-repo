@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Provider;
@@ -17,6 +18,7 @@ import services.interfaces.ProviderServicesRemote;
 @Stateless
 @LocalBean
 public class ProviderServices implements ProviderServicesRemote, ProviderServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
     /**
      * Default constructor. 
