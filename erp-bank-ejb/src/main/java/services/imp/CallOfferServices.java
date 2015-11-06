@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.CallOffer;
@@ -17,6 +18,7 @@ import services.interfaces.CallOfferServicesRemote;
 @Stateless
 @LocalBean
 public class CallOfferServices implements CallOfferServicesRemote, CallOfferServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
     /**
      * Default constructor. 

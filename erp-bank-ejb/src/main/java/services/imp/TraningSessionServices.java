@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.TrainingSession;
@@ -18,6 +19,7 @@ import services.interfaces.TraningSessionServicesRemote;
 @Stateless
 @LocalBean
 public class TraningSessionServices implements TraningSessionServicesRemote, TraningSessionServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
 
     /**
