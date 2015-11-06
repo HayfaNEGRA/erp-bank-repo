@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Entity
 
 public class BankAccount implements Serializable {
+	///test test 
     private List <AccountStatement> accountStatements;
 	private Customer customer;
 	private Integer bankAccountID;
