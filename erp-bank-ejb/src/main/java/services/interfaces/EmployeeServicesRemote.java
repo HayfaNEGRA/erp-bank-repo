@@ -8,7 +8,7 @@ import entities.Employee;
 
 @Remote
 public interface EmployeeServicesRemote {
-	Boolean addEmployee(Employee employee);
+Boolean addEmployee(Employee employee);
 	
 	Boolean deleteEmployeeById(Integer id);
 
@@ -18,8 +18,8 @@ public interface EmployeeServicesRemote {
 
 	Boolean deleteEmployee(Employee employee);
 
-	List<Employee> findAllEmployee();
-	
+	public List<Employee> findAllEmployee();
+
 	boolean identifIM(String email, String password);
 	
 	boolean identifHRM(String email, String password);
@@ -29,4 +29,5 @@ public interface EmployeeServicesRemote {
 	boolean identifCA(String email, String password);
 	
 	boolean identifCashier(String email, String password);
+
 }

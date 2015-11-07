@@ -1,59 +1,41 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
 
 import delegator.GestionEmployeeDelegator;
-
-
 import entities.Employee;
-import java.awt.Shape;
-import java.io.FileOutputStream;
- 
-
-
-
-import javax.swing.JOptionPane;
- 
-
-
-
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
 
 
 public class ManageEmployees extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	List<Employee> employees;
 	Employee emp;
 	private JButton btnUpdate;
-	private JButton btnPrint;
 	private JTextField adress;
 	private JTextField cin;
 	private JTextField phone;
@@ -66,10 +48,8 @@ public class ManageEmployees extends JFrame {
 	private JTextField birth;
 	private JTextField mail;
 	private JLabel lblMail;
-	private JScrollPane scrollPane;
-	private JTable table;
 	private JButton btnUp;
-	private JTextField username;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -92,7 +72,7 @@ public class ManageEmployees extends JFrame {
 	 */
 	public ManageEmployees() {
 		employees= new ArrayList<Employee>();
-		employees=GestionEmployeeDelegator.EmployeeList();
+		employees=GestionEmployeeDelegator.findAllEmployee();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 510);
 		contentPane = new JPanel();
@@ -101,9 +81,6 @@ public class ManageEmployees extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnDelete = new JButton("delete");
-		JComboBox role = new JComboBox();
-		role.setModel(new DefaultComboBoxModel(new String[] {"HR Manager", "Inventory Manager", "Financial Manager", "Cashier", "Client A gent"}));
-		role.setBounds(445, 380, 86, 20);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -112,7 +89,7 @@ public class ManageEmployees extends JFrame {
 				GestionEmployeeDelegator.supprimerEmploye(emp);
 				employees.remove(emp);
 				
-				
+				initDataBindings();
 			}
 		});
 		
@@ -133,48 +110,14 @@ public class ManageEmployees extends JFrame {
 				emp.setPhoneNumber(Integer.parseInt(phone.getText()));
 				emp.setEmail(pseudo.getText().toString());
 				GestionEmployeeDelegator.editemployee(emp);
-				employees=GestionEmployeeDelegator.EmployeeList();
+				employees=GestionEmployeeDelegator.findAllEmployee();
+				initDataBindings();
 			}
 		});
 		btnUp.setBounds(426, 81, 105, 23);
 		contentPane.add(btnUp);
 		btnDelete.setBounds(426, 47, 105, 23);
 		contentPane.add(btnDelete);
-		
-		
-		
-		btnPrint = new JButton("print");
-		btnPrint.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			/*	 Document document = new Document(PageSize.A4.rotate());
-				    try {
-				      PdfWriter pdf_writer = PdfWriter.getInstance(document, 
-				      	new FileOutputStream("C:/Users/pein/Desktop/pi/employees.pdf"));
-				 
-				      document.open();
-				      PdfContentByte cb = pdf_writer.getDirectContent();
-				 
-				      cb.saveState();
-				      Graphics2D g2 = cb.createGraphicsShapes(500, 500);
-				 
-				      Shape oldClip = g2.getClip();
-				      g2.clipRect(0, 0, 500, 500);
-				 
-				      table.print(g2);
-				      g2.setClip(oldClip);
-				 
-				      g2.dispose();
-				      cb.restoreState();
-				      JOptionPane.showMessageDialog(null, "liste des employees exprté vers PDF avec succès");
-				    } catch (Exception e) {
-				      System.err.println(e.getMessage());
-				    }
-				    document.close();
-				    */
-			}
-		});
-		btnPrint.setBounds(426, 112, 105, 23);
-		contentPane.add(btnPrint);
 		
 		adress = new JTextField();
 		adress.setBounds(41, 277, 86, 20);
@@ -265,23 +208,14 @@ public class ManageEmployees extends JFrame {
 		JLabel lblKidsNumber = new JLabel("Kids number");
 		lblKidsNumber.setBounds(445, 308, 86, 14);
 		contentPane.add(lblKidsNumber);
-		
-		JLabel lblRole = new JLabel("Role");
-		lblRole.setBounds(445, 358, 46, 14);
-		contentPane.add(lblRole);
-
-		
-		contentPane.add(role);
 		mail = new JTextField();
-		mail.setBounds(445, 440, 86, 20);
+		mail.setBounds(445, 380, 86, 20);
 		contentPane.add(mail);
 		mail.setColumns(10);
 		
 		lblMail = new JLabel("Mail");
-		lblMail.setBounds(445, 415, 46, 14);
+		lblMail.setBounds(445, 355, 46, 14);
 		contentPane.add(lblMail);
-		
-		role.setVisible(false);
 		civil.setVisible(false);
 		birth.setVisible(false);
 		adress.setVisible(false);
@@ -300,7 +234,6 @@ public class ManageEmployees extends JFrame {
 		lblName.setVisible(false);
 		lblPassword.setVisible(false);
 		lblPhone.setVisible(false);
-		lblRole.setVisible(false);
 		lblNewLabel_1.setVisible(false);
 		lblNewLabel_2.setVisible(false);
 		lblMail.setVisible(false);
@@ -324,7 +257,6 @@ public class ManageEmployees extends JFrame {
 				cin.setText(""+emp.getCIN());
 				mail.setText(emp.getEmail());
 				
-				role.setVisible(true);
 				civil.setVisible(true);
 				birth.setVisible(true);
 				adress.setVisible(true);
@@ -343,7 +275,6 @@ public class ManageEmployees extends JFrame {
 				lblName.setVisible(true);
 				lblPassword.setVisible(true);
 				lblPhone.setVisible(true);
-				lblRole.setVisible(true);
 				lblNewLabel_1.setVisible(true);
 				lblNewLabel_2.setVisible(true);
 				lblMail.setVisible(true);
@@ -356,16 +287,42 @@ public class ManageEmployees extends JFrame {
 		btnUpdate.setOpaque(false);
 		btnUpdate.setContentAreaFilled(false);
 		btnUpdate.setBorderPainted(false);
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 392, 207);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 383, 219);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
 		
-		username = new JTextField();
-		
+		btnUpdate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				
+							}
+		});
+		initDataBindings();
 		
 	}
-	
+	protected void initDataBindings() {
+		JTableBinding<Employee, List<Employee>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, employees, table);
+		//
+		BeanProperty<Employee, String> employeeBeanProperty = BeanProperty.create("firstName");
+		jTableBinding.addColumnBinding(employeeBeanProperty).setColumnName("firstname");
+		//
+		BeanProperty<Employee, String> employeeBeanProperty_1 = BeanProperty.create("lastName");
+		jTableBinding.addColumnBinding(employeeBeanProperty_1).setColumnName("LastName");
+		//
+		BeanProperty<Employee, Integer> employeeBeanProperty_2 = BeanProperty.create("phoneNumber");
+		jTableBinding.addColumnBinding(employeeBeanProperty_2).setColumnName("Phone");
+		//
+		BeanProperty<Employee, String> employeeBeanProperty_3 = BeanProperty.create("email");
+		jTableBinding.addColumnBinding(employeeBeanProperty_3).setColumnName("Email");
+		//
+		BeanProperty<Employee, String> employeeBeanProperty_4 = BeanProperty.create("adress");
+		jTableBinding.addColumnBinding(employeeBeanProperty_4).setColumnName("Adresse");
+		//
+		jTableBinding.bind();
+	}
 }
+

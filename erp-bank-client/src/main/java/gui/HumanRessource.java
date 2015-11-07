@@ -66,7 +66,7 @@ public class HumanRessource extends JFrame {
 		JButton button_1 = new JButton("Employees");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EmployeesManaging frame1 = new EmployeesManaging();
+			ManageEmployees frame1 = new ManageEmployees();
 
 				frame.setVisible(false);
 				frame1.setVisible(true);

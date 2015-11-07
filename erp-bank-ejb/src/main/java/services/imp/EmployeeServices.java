@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Employee;
+
 import entities.HumanRessourceManager;
 import entities.InventoryManager;
 import services.interfaces.EmployeeServicesLocal;
@@ -20,7 +21,8 @@ import services.interfaces.EmployeeServicesRemote;
 @Stateless
 @LocalBean
 public class EmployeeServices implements EmployeeServicesRemote, EmployeeServicesLocal {
-@PersistenceContext
+	@PersistenceContext(name = "gestionemploye")
+
 	private EntityManager entityManager;
     /**
      * Default constructor. 

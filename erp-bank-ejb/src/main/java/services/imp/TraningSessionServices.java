@@ -18,9 +18,12 @@ import services.interfaces.TraningSessionServicesRemote;
  */
 @Stateless
 @LocalBean
+@PersistenceContext(name = "trainingsession")
+
 public class TraningSessionServices implements TraningSessionServicesRemote, TraningSessionServicesLocal {
 	@PersistenceContext
 	private EntityManager entityManager;
+	
 
     /**
      * Default constructor. 
