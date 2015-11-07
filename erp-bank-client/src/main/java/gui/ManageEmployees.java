@@ -1,4 +1,4 @@
-package gui
+package gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,13 +12,13 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import tn.esprit.delegator.GestionEmployeeDelegator;
-import tn.esprit.entites.Employee;
+import delegator.GestionEmployeeDelegator;
 
-import org.jdesktop.swingbinding.JTableBinding;
-import org.jdesktop.swingbinding.SwingBindings;
-import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
-import org.jdesktop.beansbinding.BeanProperty;
+
+import entities.Employee;
+
+
+
 
 
 
@@ -27,13 +27,11 @@ import java.io.FileOutputStream;
  
 
 
+
 import javax.swing.JOptionPane;
  
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.PageSize;
-import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfWriter;
+
 
 import javax.swing.JButton;
 
@@ -53,6 +51,11 @@ import java.awt.event.KeyEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JCheckBoxMenuItem;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.ObjectProperty;
 
 
 public class ManageEmployees extends JFrame {
@@ -61,7 +64,6 @@ public class ManageEmployees extends JFrame {
 	List<Employee> employees;
 	Employee emp;
 	private JButton btnUpdate;
-	private JButton btnPrint;
 	private JTextField adress;
 	private JTextField cin;
 	private JTextField phone;
@@ -74,10 +76,8 @@ public class ManageEmployees extends JFrame {
 	private JTextField birth;
 	private JTextField mail;
 	private JLabel lblMail;
-	private JScrollPane scrollPane;
-	private JTable table;
 	private JButton btnUp;
-	private JTextField username;
+	private JTable table;
 
 	/**
 	 * Launch the application.
@@ -100,7 +100,7 @@ public class ManageEmployees extends JFrame {
 	 */
 	public ManageEmployees() {
 		employees= new ArrayList<Employee>();
-		employees=GestionEmployeeDelegator.EmployeeList();
+		employees=GestionEmployeeDelegator.findAllEmployee();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 561, 510);
 		contentPane = new JPanel();
@@ -109,9 +109,6 @@ public class ManageEmployees extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btnDelete = new JButton("delete");
-		JComboBox role = new JComboBox();
-		role.setModel(new DefaultComboBoxModel(new String[] {"HR Manager", "Inventory Manager", "Financial Manager", "Cashier", "Client A gent"}));
-		role.setBounds(445, 380, 86, 20);
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -131,18 +128,17 @@ public class ManageEmployees extends JFrame {
 				emp=employees.get(table.getSelectedRow());
 				emp.setAdress(adress.getText().toString());
 				emp.setBirthDate(birth.getText().toString());
-				emp.setCin(Integer.parseInt(cin.getText()));
+				emp.setCIN(cin.getText());
 				emp.setCivilState(civil.getText().toString());
 				emp.setEmail(mail.getText().toString());
 				emp.setKidsNumber(Integer.parseInt(kids.getText()));
 				emp.setLastName(lastname.getText().toString());
-				emp.setName(name.getText().toString());
-				emp.setPassWord(password.getText().toString());
+				emp.setFirstName(name.getText().toString());
+				emp.setPassword(password.getText().toString());
 				emp.setPhoneNumber(Integer.parseInt(phone.getText()));
-				emp.setRole(role.getSelectedItem().toString());
-				emp.setUserName(pseudo.getText().toString());
+				emp.setEmail(pseudo.getText().toString());
 				GestionEmployeeDelegator.editemployee(emp);
-				employees=GestionEmployeeDelegator.EmployeeList();
+				employees=GestionEmployeeDelegator.findAllEmployee();
 				initDataBindings();
 			}
 		});
@@ -150,41 +146,6 @@ public class ManageEmployees extends JFrame {
 		contentPane.add(btnUp);
 		btnDelete.setBounds(426, 47, 105, 23);
 		contentPane.add(btnDelete);
-		
-		
-		
-		btnPrint = new JButton("print");
-		btnPrint.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				 Document document = new Document(PageSize.A4.rotate());
-				    try {
-				      PdfWriter pdf_writer = PdfWriter.getInstance(document, 
-				      	new FileOutputStream("C:/Users/pein/Desktop/pi/employees.pdf"));
-				 
-				      document.open();
-				      PdfContentByte cb = pdf_writer.getDirectContent();
-				 
-				      cb.saveState();
-				      Graphics2D g2 = cb.createGraphicsShapes(500, 500);
-				 
-				      Shape oldClip = g2.getClip();
-				      g2.clipRect(0, 0, 500, 500);
-				 
-				      table.print(g2);
-				      g2.setClip(oldClip);
-				 
-				      g2.dispose();
-				      cb.restoreState();
-				      JOptionPane.showMessageDialog(null, "liste des employees exprté vers PDF avec succès");
-				    } catch (Exception e) {
-				      System.err.println(e.getMessage());
-				    }
-				    document.close();
-				    
-			}
-		});
-		btnPrint.setBounds(426, 112, 105, 23);
-		contentPane.add(btnPrint);
 		
 		adress = new JTextField();
 		adress.setBounds(41, 277, 86, 20);
@@ -275,23 +236,14 @@ public class ManageEmployees extends JFrame {
 		JLabel lblKidsNumber = new JLabel("Kids number");
 		lblKidsNumber.setBounds(445, 308, 86, 14);
 		contentPane.add(lblKidsNumber);
-		
-		JLabel lblRole = new JLabel("Role");
-		lblRole.setBounds(445, 358, 46, 14);
-		contentPane.add(lblRole);
-
-		
-		contentPane.add(role);
 		mail = new JTextField();
-		mail.setBounds(445, 440, 86, 20);
+		mail.setBounds(445, 380, 86, 20);
 		contentPane.add(mail);
 		mail.setColumns(10);
 		
 		lblMail = new JLabel("Mail");
-		lblMail.setBounds(445, 415, 46, 14);
+		lblMail.setBounds(445, 355, 46, 14);
 		contentPane.add(lblMail);
-		
-		role.setVisible(false);
 		civil.setVisible(false);
 		birth.setVisible(false);
 		adress.setVisible(false);
@@ -310,7 +262,6 @@ public class ManageEmployees extends JFrame {
 		lblName.setVisible(false);
 		lblPassword.setVisible(false);
 		lblPhone.setVisible(false);
-		lblRole.setVisible(false);
 		lblNewLabel_1.setVisible(false);
 		lblNewLabel_2.setVisible(false);
 		lblMail.setVisible(false);
@@ -327,14 +278,13 @@ public class ManageEmployees extends JFrame {
 				adress.setText(emp.getAdress());
 				kids.setText(""+emp.getKidsNumber());
 				phone.setText(""+emp.getPhoneNumber());
-				name.setText(emp.getName());
+				name.setText(emp.getFirstName());
 				lastname.setText(emp.getLastName());
-				pseudo.setText(emp.getUserName());
-				password.setText(emp.getPassWord());
-				cin.setText(""+emp.getCin());
+				pseudo.setText(emp.getEmail());
+				password.setText(emp.getPassword());
+				cin.setText(""+emp.getCIN());
 				mail.setText(emp.getEmail());
 				
-				role.setVisible(true);
 				civil.setVisible(true);
 				birth.setVisible(true);
 				adress.setVisible(true);
@@ -353,7 +303,6 @@ public class ManageEmployees extends JFrame {
 				lblName.setVisible(true);
 				lblPassword.setVisible(true);
 				lblPhone.setVisible(true);
-				lblRole.setVisible(true);
 				lblNewLabel_1.setVisible(true);
 				lblNewLabel_2.setVisible(true);
 				lblMail.setVisible(true);
@@ -366,64 +315,13 @@ public class ManageEmployees extends JFrame {
 		btnUpdate.setOpaque(false);
 		btnUpdate.setContentAreaFilled(false);
 		btnUpdate.setBorderPainted(false);
-		scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 36, 392, 207);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 11, 383, 219);
 		contentPane.add(scrollPane);
 		
 		table = new JTable();
 		scrollPane.setViewportView(table);
-		
-		username = new JTextField();
-		username.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				employees=GestionEmployeeDelegator. emplyees(username.getText().toString());
-				initDataBindings();
-			}
-		});
-		username.setBounds(426, 146, 105, 20);
-		contentPane.add(username);
-		username.setColumns(10);
-		
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 97, 21);
-		contentPane.add(menuBar);
-		
-		JMenu mnAdmin = new JMenu("Admin");
-		menuBar.add(mnAdmin);
-		
-		JMenu mnManageEmployees = new JMenu("Manage employees");
-		mnAdmin.add(mnManageEmployees);
-		
-		JCheckBoxMenuItem chckbxmntmAddEmployee = new JCheckBoxMenuItem("Add Employee");
-		chckbxmntmAddEmployee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ManageEmployees.this.dispose();
-				new AddE().show();
-			}
-		});
-		mnManageEmployees.add(chckbxmntmAddEmployee);
-		
-		JCheckBoxMenuItem chckbxmntmManageEmployees = new JCheckBoxMenuItem("Manage employees");
-		mnManageEmployees.add(chckbxmntmManageEmployees);
-		
-		JMenu mnManageTrainingSessions = new JMenu("Manage training sessions");
-		mnAdmin.add(mnManageTrainingSessions);
-		
-		JCheckBoxMenuItem chckbxmntmManageCandidacies = new JCheckBoxMenuItem("Manage Candidacies ");
-		mnAdmin.add(chckbxmntmManageCandidacies);
-		
-		JCheckBoxMenuItem chckbxmntmManageEmployeesContracts = new JCheckBoxMenuItem("Manage employees contracts");
-		mnAdmin.add(chckbxmntmManageEmployeesContracts);
-		
-		JCheckBoxMenuItem chckbxmntmDashboard = new JCheckBoxMenuItem("Dashboard");
-		chckbxmntmDashboard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ManageEmployees.this.dispose();
-				new manageHR().show();
-			}
-		});
-		mnAdmin.add(chckbxmntmDashboard);
 		
 		btnUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -437,26 +335,20 @@ public class ManageEmployees extends JFrame {
 	protected void initDataBindings() {
 		JTableBinding<Employee, List<Employee>, JTable> jTableBinding = SwingBindings.createJTableBinding(UpdateStrategy.READ, employees, table);
 		//
-		BeanProperty<Employee, Integer> employeeBeanProperty = BeanProperty.create("cin");
-		jTableBinding.addColumnBinding(employeeBeanProperty).setColumnName("cin");
+		BeanProperty<Employee, String> employeeBeanProperty = BeanProperty.create("firstName");
+		jTableBinding.addColumnBinding(employeeBeanProperty).setColumnName("firstname");
 		//
-		BeanProperty<Employee, String> employeeBeanProperty_1 = BeanProperty.create("email");
-		jTableBinding.addColumnBinding(employeeBeanProperty_1).setColumnName("mail");
+		BeanProperty<Employee, String> employeeBeanProperty_1 = BeanProperty.create("lastName");
+		jTableBinding.addColumnBinding(employeeBeanProperty_1).setColumnName("LastName");
 		//
-		BeanProperty<Employee, String> employeeBeanProperty_2 = BeanProperty.create("lastName");
-		jTableBinding.addColumnBinding(employeeBeanProperty_2).setColumnName("L.name");
+		BeanProperty<Employee, Integer> employeeBeanProperty_2 = BeanProperty.create("phoneNumber");
+		jTableBinding.addColumnBinding(employeeBeanProperty_2).setColumnName("Phone");
 		//
-		BeanProperty<Employee, String> employeeBeanProperty_3 = BeanProperty.create("name");
-		jTableBinding.addColumnBinding(employeeBeanProperty_3).setColumnName("F.name");
+		BeanProperty<Employee, String> employeeBeanProperty_3 = BeanProperty.create("email");
+		jTableBinding.addColumnBinding(employeeBeanProperty_3).setColumnName("Email");
 		//
-		BeanProperty<Employee, Integer> employeeBeanProperty_4 = BeanProperty.create("phoneNumber");
-		jTableBinding.addColumnBinding(employeeBeanProperty_4).setColumnName("phone");
-		//
-		BeanProperty<Employee, String> employeeBeanProperty_5 = BeanProperty.create("role");
-		jTableBinding.addColumnBinding(employeeBeanProperty_5).setColumnName("role");
-		//
-		BeanProperty<Employee, String> employeeBeanProperty_6 = BeanProperty.create("userName");
-		jTableBinding.addColumnBinding(employeeBeanProperty_6).setColumnName("username");
+		BeanProperty<Employee, String> employeeBeanProperty_4 = BeanProperty.create("adress");
+		jTableBinding.addColumnBinding(employeeBeanProperty_4).setColumnName("Adresse");
 		//
 		jTableBinding.bind();
 	}

@@ -16,6 +16,7 @@ public class Employee implements Serializable {
 
 	
 	private Integer IdEmployee;
+	private String CIN;
 	private String FirstName;
 	private String LastName;
 	private String Email;
@@ -118,6 +119,13 @@ public class Employee implements Serializable {
 	public void setKidsNumber(int kidsNumber) {
 		this.kidsNumber = kidsNumber;
 	}
+	public String getCIN() {
+		return CIN;
+	}
+	public void setCIN(String cIN) {
+		CIN = cIN;
+	}
+	
 	
    
 }
