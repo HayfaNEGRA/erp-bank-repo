@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Entity
 
 public class BankAccount implements Serializable {
+	///test test 
     private List <AccountStatement> accountStatements;
 	private Customer customer;
 	private Integer bankAccountID;
@@ -29,6 +30,8 @@ public class BankAccount implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getBankAccountID() {
 		return this.bankAccountID;
 	}

@@ -20,5 +20,14 @@ Boolean addEmployee(Employee employee);
 
 	public List<Employee> findAllEmployee();
 
-	}
+	boolean identifIM(String email, String password);
+	
+	boolean identifHRM(String email, String password);
+	
+	boolean identifITM(String email, String password);
+	
+	boolean identifCA(String email, String password);
+	
+	boolean identifCashier(String email, String password);
 
+}

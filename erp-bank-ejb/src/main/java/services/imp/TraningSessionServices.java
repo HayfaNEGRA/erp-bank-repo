@@ -21,6 +21,7 @@ import services.interfaces.TraningSessionServicesRemote;
 @PersistenceContext(name = "trainingsession")
 
 public class TraningSessionServices implements TraningSessionServicesRemote, TraningSessionServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
 	
 

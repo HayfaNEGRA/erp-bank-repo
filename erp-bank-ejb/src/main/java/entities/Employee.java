@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+
 import javax.persistence.*;
 
 /**
@@ -35,6 +36,8 @@ public class Employee implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getIdEmployee() {
 		return this.IdEmployee;
 	}

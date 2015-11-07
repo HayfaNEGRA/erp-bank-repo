@@ -1,65 +1,37 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-
-import delegator.GestionEmployeeDelegator;
-
-
-import entities.Employee;
-
-
-
-
-
-
-import java.awt.Shape;
-import java.io.FileOutputStream;
- 
-
-
-
-import javax.swing.JOptionPane;
- 
-
-
-
-import javax.swing.JButton;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.EmptyBorder;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JCheckBoxMenuItem;
-import org.jdesktop.swingbinding.JTableBinding;
-import org.jdesktop.swingbinding.SwingBindings;
 import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
-import org.jdesktop.beansbinding.ObjectProperty;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
+
+import delegator.GestionEmployeeDelegator;
+import entities.Employee;
 
 
 public class ManageEmployees extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	List<Employee> employees;
 	Employee emp;
@@ -353,3 +325,4 @@ public class ManageEmployees extends JFrame {
 		jTableBinding.bind();
 	}
 }
+

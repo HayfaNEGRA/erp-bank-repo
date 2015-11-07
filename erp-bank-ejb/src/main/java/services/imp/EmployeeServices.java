@@ -9,6 +9,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Employee;
+
+import entities.HumanRessourceManager;
+import entities.InventoryManager;
 import services.interfaces.EmployeeServicesLocal;
 import services.interfaces.EmployeeServicesRemote;
 
@@ -18,8 +21,8 @@ import services.interfaces.EmployeeServicesRemote;
 @Stateless
 @LocalBean
 public class EmployeeServices implements EmployeeServicesRemote, EmployeeServicesLocal {
-
 	@PersistenceContext(name = "gestionemploye")
+
 	private EntityManager entityManager;
     /**
      * Default constructor. 
@@ -83,14 +86,62 @@ public class EmployeeServices implements EmployeeServicesRemote, EmployeeService
 				return b;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Employee> findAllEmployee() {
-			Query query = entityManager.createQuery("select a from Employee a");
-			return query.getResultList();
-
-		
-
+		String jpql = "select e from Employee e";
+				Query query = entityManager.createQuery(jpql);
+				return query.getResultList();
 	}
 	
+	@Override
+	public boolean identifIM(String email, String password) {
+		
+		boolean reponse = false;
+		String jpql = "select e from Employee e where e.email =:e and e.password=:p ";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("e", email).setParameter("p", password);
+		Employee e = (Employee) query.getSingleResult();
+		System.out.println(e.getClass());
+		if (e instanceof InventoryManager)
+		{
+			reponse = true;
+		}
+		return reponse;
+	}
+
+	@Override
+	public boolean identifHRM(String email, String password) {
+		boolean reponse = false;
+		String jpql = "select e from Employee e where e.email =:e and e.password=:p ";
+		Query query = entityManager.createQuery(jpql);
+		query.setParameter("e", email).setParameter("p", password);
+		Employee e = (Employee) query.getSingleResult();
+		System.out.println(e.getClass());
+		if (e instanceof HumanRessourceManager)
+		{
+			reponse = true;
+		}
+		return reponse;
+	}
+
+	@Override
+	public boolean identifITM(String email, String password) {
+		
+		return false;
+	}
+
+	@Override
+	public boolean identifCA(String email, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean identifCashier(String email, String password) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 
 }

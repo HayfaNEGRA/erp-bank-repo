@@ -27,6 +27,8 @@ public class Payslip implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getIdPayslip() {
 		return this.idPayslip;
 	}

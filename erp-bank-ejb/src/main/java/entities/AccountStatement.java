@@ -25,7 +25,8 @@ public class AccountStatement implements Serializable {
 	public AccountStatement() {
 		super();
 	}   
-	@Id    
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getHistoryId() {
 		return this.historyId;
 	}

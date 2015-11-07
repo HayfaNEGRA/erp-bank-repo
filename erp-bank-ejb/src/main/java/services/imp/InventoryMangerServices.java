@@ -1,8 +1,9 @@
 package services.imp;
 
 import java.util.List;
-import javax.persistence.EntityManager;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.Query;
@@ -17,6 +18,7 @@ import services.interfaces.InventoryMangerServicesRemote;
 @Stateless
 @LocalBean
 public class InventoryMangerServices implements InventoryMangerServicesRemote, InventoryMangerServicesLocal {
+	@PersistenceContext
 	private EntityManager entityManager;
     /**
      * Default constructor. 

@@ -28,7 +28,9 @@ public class CandidaciesDemands implements Serializable {
 	public CandidaciesDemands() {
 		super();
 	}   
-	@Id    
+	@Id   
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getIdDemand() {
 		return this.IdDemand;
 	}
