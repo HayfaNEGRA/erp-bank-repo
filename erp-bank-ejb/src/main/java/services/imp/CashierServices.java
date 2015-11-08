@@ -80,6 +80,11 @@ public class CashierServices implements CashierServicesRemote, CashierServicesLo
   				Query query = entityManager.createQuery(jpql);
   				return query.getResultList();
   	}
+	@Override
+	public List<Cashier> findAllCashier(String CIN) {
+		// TODO Auto-generated method stub
+		return entityManager.createQuery("select e from Cashier e where e.CIN =:x",Cashier.class).setParameter("x",CIN).getResultList();
+	}
 
 
 }
