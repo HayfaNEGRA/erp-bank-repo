@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import entities.Reward;
@@ -17,6 +18,7 @@ import services.interfaces.RewardServicesRemote;
 @Stateless
 
 public class RewardServices implements RewardServicesRemote, RewardServicesLocal {
+	@PersistenceContext
 private EntityManager entityManager;
     /**
      * Default constructor. 
@@ -26,12 +28,10 @@ private EntityManager entityManager;
     }
     public Boolean addreward(Reward reward) {
 		Boolean b = false;
-				try {
+				
 					entityManager.persist(reward);
 					b = true;
-				} catch (Exception e) {
-					System.err.println("ouuuuuuuuuups...");
-				}
+				
 				return b;
 	}
 

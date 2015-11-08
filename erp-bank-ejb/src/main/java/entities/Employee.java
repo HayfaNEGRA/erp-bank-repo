@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
+
 import javax.persistence.*;
 
 /**
@@ -16,9 +17,16 @@ public class Employee implements Serializable {
 
 	
 	private Integer IdEmployee;
+	private String CIN;
 	private String FirstName;
 	private String LastName;
 	private String Email;
+	private String birthDate;
+	private String adress;
+	private int phoneNumber;
+	private String sexe;
+	private String civilState;
+	private int kidsNumber;
 	private String Password;
 	private Payslip payslip;
 	private Boolean IsDeleted;
@@ -28,6 +36,8 @@ public class Employee implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getIdEmployee() {
 		return this.IdEmployee;
 	}
@@ -76,5 +86,49 @@ public class Employee implements Serializable {
 	public void setIsDeleted(Boolean IsDeleted) {
 		this.IsDeleted = IsDeleted;
 	}
+	public String getBirthDate() {
+		return birthDate;
+	}
+	public void setBirthDate(String birthDate) {
+		this.birthDate = birthDate;
+	}
+	public String getAdress() {
+		return adress;
+	}
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+	public int getPhoneNumber() {
+		return phoneNumber;
+	}
+	public void setPhoneNumber(int phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
+	public String getSexe() {
+		return sexe;
+	}
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+	public String getCivilState() {
+		return civilState;
+	}
+	public void setCivilState(String civilState) {
+		this.civilState = civilState;
+	}
+	public int getKidsNumber() {
+		return kidsNumber;
+	}
+	public void setKidsNumber(int kidsNumber) {
+		this.kidsNumber = kidsNumber;
+	}
+	public String getCIN() {
+		return CIN;
+	}
+	public void setCIN(String cIN) {
+		CIN = cIN;
+	}
+	
+	
    
 }

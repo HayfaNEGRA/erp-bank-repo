@@ -29,6 +29,8 @@ public class TrainingSession implements Serializable {
 		super();
 	}   
 	@Id    
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+
 	public Integer getIdTrainingSession() {
 		return this.IdTrainingSession;
 	}
