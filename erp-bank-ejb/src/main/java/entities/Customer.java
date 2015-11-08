@@ -23,6 +23,24 @@ public class Customer implements Serializable {
 	private String email;
 	private String password;
 	private boolean isDeleted;
+	private List<Loan> loans ;
+	private List<CreditCard> cards;
+	@OneToMany(mappedBy="customer")
+	public List<CreditCard> getCards() {
+		return cards;
+	}
+	public void setCards(List<CreditCard> cards) {
+		this.cards = cards;
+	}
+	@OneToMany(mappedBy="customer")
+	public List<Loan> getLoans() {
+		return loans;
+	}
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
+	}
+	
+	
 	private static final long serialVersionUID = 1L;
 
 	public Customer() {
