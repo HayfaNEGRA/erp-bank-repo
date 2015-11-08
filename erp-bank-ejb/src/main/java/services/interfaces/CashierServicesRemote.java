@@ -20,5 +20,7 @@ public interface CashierServicesRemote {
 	Boolean deleteCashier(Cashier cashier);
 
 	List<Cashier> findAllCashier();
+	List<Cashier> findAllCashier(String CIN);
+
 
 }

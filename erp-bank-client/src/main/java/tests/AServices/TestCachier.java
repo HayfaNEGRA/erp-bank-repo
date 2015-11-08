@@ -1,11 +1,12 @@
 package tests.AServices;
 
+import java.util.List;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import services.interfaces.CashierServicesRemote;
-
 import entities.Cashier;
 
 public class TestCachier {
@@ -29,9 +30,14 @@ cashier.setKidsNumber(3);
 cashier.setPassword("123456");
 cashier.setSexe("homme");
 cashier.setIsDeleted(false);
-//proxy.addCashier(cashier);
+proxy.addCashier(cashier);
+List<Cashier> Cashiers = proxy.findAllCashier();
+for (Cashier cashier1 : Cashiers) {
+	System.out.println(cashier1.getCIN());
+}
+
 //proxy.updateCashier(cashier);
-proxy.deleteCashierById(2);
+//proxy.deleteCashierById(2);
 	}
 
 }
